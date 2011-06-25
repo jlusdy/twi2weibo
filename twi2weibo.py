@@ -6,8 +6,8 @@ import time
 import urllib,sys
 import simplejson as json
 
-consumer_key= '186010393'
-consumer_secret ='794318407229919bbd963325e93520fc'
+consumer_key= 'yyy'
+consumer_secret ='yyy'
 token = 'xxx'
 tokenSecret = 'xxx'
 
