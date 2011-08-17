@@ -3,8 +3,10 @@ from weibopy.auth import OAuthHandler
 from weibopy.api import API
 
 import time
-import urllib,sys
+import urllib,sys,socket
 import simplejson as json
+
+socket.setdefaulttimeout(5)
 
 consumer_key= 'yyy'
 consumer_secret ='yyy'
@@ -39,6 +41,12 @@ while 1:
                     print twitter_last_id
                     if cur_tweet.startswith('@'):
                         continue
+                    if cur_tweet.count('http://t.co') > 0:
+                        for segment in cur_tweet.split():
+                            if segment.startswith('http://t.co'):
+                                realresponse = urllib.urlopen(segment)
+                                if realresponse.getcode() == 200:
+                                    cur_tweet = cur_tweet.replace(segment,realresponse.geturl())
                     api.update_status(cur_tweet)
     except Exception as tui2lang:
         print time.ctime()
